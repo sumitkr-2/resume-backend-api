@@ -14,3 +14,7 @@ yarn-error.log*
 
 # OS
 .DS_Store
+
+# prisma sqlite db
+prisma/**/*.db
+prisma/**/*.db-journal
