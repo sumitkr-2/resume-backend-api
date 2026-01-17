@@ -1,56 +1,58 @@
-
 <div align="center">
 
-# 🧩 Resume Backend API (Track A)
+# Resume Backend API  
+### Backend Track A – Software & AI Developer Internship Assessment
 
-A minimal, production-minded **backend project** built as part of the  
-**Intern – Software & AI Developer** assessment.
-
-This application stores my **real resume/profile data** in a database, exposes it via clean REST APIs, and serves a very basic frontend to consume those APIs.
+A minimal, production-minded backend project that stores my **real resume data**
+in a database and exposes clean REST APIs to create, read, update, and query it.
 
 </div>
 
 ---
 
-## 🚀 Live Demo
+## 🚀 Live Deployment
 
-- 🌐 **Frontend:** https://resume-backend-api.onrender.com  
-- 📄 **Profile API:** https://resume-backend-api.onrender.com/profile  
-- ❤️ **Health Check:** https://resume-backend-api.onrender.com/health  
+| Resource | Link |
+|--------|------|
+| Base URL | https://resume-backend-api.onrender.com |
+| Health Check | https://resume-backend-api.onrender.com/health |
+| Get Profile | https://resume-backend-api.onrender.com/profile |
+| Top Skills (Query) | https://resume-backend-api.onrender.com/skills/top |
 
 ---
 
 ## 🧱 Tech Stack
 
 | Layer | Technology |
-|-----|------------|
-| Backend | Node.js, Express |
-| Database | SQLite |
+|-----|-----------|
+| Runtime | Node.js |
+| Framework | Express |
 | ORM | Prisma |
-| Frontend | HTML, Vanilla JavaScript |
-| Hosting | Render |
+| Database | SQLite |
+| Frontend | Plain HTML + JavaScript |
+| Hosting | Render (Free Tier) |
 
 ---
 
-## ✨ Features
+## 📦 Features
 
-- Persistent database seeded with **real resume data**
-- REST APIs to create and read profile information
-- Relational data modeling for skills
-- Health endpoint for service liveness
-- Minimal frontend that calls the hosted backend API
-- Clean, readable project structure
+- Persistent database with real resume data
+- REST APIs covering **Create, Read, Update**
+- Query endpoint to demonstrate filtering
+- Health endpoint for liveness checks
+- Minimal frontend to consume backend APIs
+- Clean schema with relations and constraints
 
 ---
 
 ## 📌 API Endpoints
 
-### ✅ Health Check
+✔ Supports updating profile fields via `PUT /profile`
+
+### Health Check
 ```http
 GET /health
 ````
-
-Response:
 
 ```json
 { "status": "ok" }
@@ -58,7 +60,29 @@ Response:
 
 ---
 
-### 👤 Get Profile
+### Create Profile (Seeding – Used Once)
+
+```http
+POST /profile
+```
+
+```bash
+curl -X POST https://resume-backend-api.onrender.com/profile \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Sumit Kumar",
+    "email": "sumit.kumar120664@gmail.com",
+    "education": "B.Tech in Computer Science and Engineering, NIT Delhi (2023–2027, CGPA: 7.87)",
+    "github": "https://github.com/sumitkr-2",
+    "linkedin": "https://www.linkedin.com/in/sumit-kumar2004",
+    "portfolio": "https://sumitkr-2.github.io/Portfolio_website",
+    "skills": ["C++","C","Python","JavaScript","REST APIs","Docker","Git"]
+  }'
+```
+
+---
+
+### Read Profile
 
 ```http
 GET /profile
@@ -68,84 +92,75 @@ Returns the stored profile along with associated skills.
 
 ---
 
-### 📝 Create Profile (used for seeding)
+### Update Profile
 
 ```http
-POST /profile
+PUT /profile
 ```
 
-Example request:
-
 ```bash
-curl -X POST https://resume-backend-api.onrender.com/profile \
--H "Content-Type: application/json" \
--d '{
-  "name": "Sumit Kumar",
-  "email": "sumit.kumar120664@gmail.com",
-  "education": "B.Tech in Computer Science and Engineering, National Institute of Technology Delhi (2023–2027, CGPA: 7.87)",
-  "github": "https://github.com/sumitkr-2",
-  "linkedin": "https://www.linkedin.com/in/sumit-kumar2004",
-  "portfolio": "https://sumitkr-2.github.io/Portfolio_website",
-  "skills": [
-    "C++",
-    "C",
-    "Python",
-    "JavaScript",
-    "FastAPI",
-    "REST APIs",
-    "MySQL",
-    "Docker",
-    "Git",
-    "GitHub",
-    "Redis",
-    "Algorithms",
-    "Data Structures",
-    "Operating Systems",
-    "DBMS",
-    "Computer Networks"
-  ]
-}'
+curl -X PUT https://resume-backend-api.onrender.com/profile \
+  -H "Content-Type: application/json" \
+  -d '{
+    "education": "B.Tech in Computer Science and Engineering, NIT Delhi (Updated)"
+  }'
 ```
 
 ---
 
-## 🗄 Database Schema
+### Query Endpoint – Top Skills
+
+```http
+GET /skills/top
+```
+
+Returns a subset of stored skills to demonstrate query functionality.
+
+---
+
+## 🗄 Database Schema (Simplified)
 
 ### Profile
 
-* `id` (Primary Key)
-* `name`
-* `email` (unique)
-* `education`
-* `github`
-* `linkedin`
-* `portfolio`
+* id
+* name
+* email *(unique)*
+* education
+* github
+* linkedin
+* portfolio
 
 ### Skill
 
-* `id` (Primary Key)
-* `name`
-* `profileId` (Foreign Key → Profile)
-
-Schema is defined using Prisma in `prisma/schema.prisma`.
+* id
+* name
+* profileId *(relation)*
 
 ---
 
 ## 🖥 Frontend
 
-The frontend is intentionally **very basic** and implemented using plain HTML and JavaScript.
+A very minimal HTML frontend is served from the `/public` directory.
 
-* Automatically fetches data from `/profile` on page load
+* Fetches `/profile` on page load
 * Demonstrates backend → frontend integration
-* Light inline styling only (no frameworks)
-
-This strictly follows the **“very basic frontend”** requirement.
+* Intentionally simple (backend-focused assessment)
 
 ---
 
-## ▶️ Run Locally
+## 🖼 Screenshots
 
-Clone the repository:
+> Screenshots are included to demonstrate successful deployment and API responses.
+
+| Description           | Preview                 |
+| --------------------- | ----------------------- |
+| Home Page (Frontend)  |<img width="634" height="416" alt="image" src="https://github.com/user-attachments/assets/f12a85a7-b447-47fb-9d1d-4c818f20a78e" />|
+| GET /profile response |<img width="657" height="593" alt="image" src="https://github.com/user-attachments/assets/7498d96b-1a57-453c-965b-6bc6b84a08ef" />|
+| Top Skills          |<img width="571" height="517" alt="image" src="https://github.com/user-attachments/assets/6ec553de-353e-4359-99f7-59721c9a5570" />|
+
+
+
+## ▶️ Run Locally
 
 ```bash
 git clone https://github.com/sumitkr-2/resume-backend-api
@@ -153,7 +168,7 @@ cd resume-backend-api
 npm install
 ```
 
-Create `.env` file:
+Create `.env`:
 
 ```env
 DATABASE_URL="file:./prisma/dev.db"
@@ -167,13 +182,13 @@ npx prisma generate
 npx prisma db push
 ```
 
-Start the server:
+Run server:
 
 ```bash
-npm run dev
+npm start
 ```
 
-Open in browser:
+Open:
 
 ```
 http://localhost:3000
@@ -181,50 +196,34 @@ http://localhost:3000
 
 ---
 
+## ⚠️ Deployment Notes (Render Free Tier)
+
+* SQLite used due to free hosting constraints
+* Database files are **not committed** to version control
+* Prisma synchronizes schema at runtime
+* Single-profile system by design
+
+---
+
 ## 📄 Resume
 
-🔗 **Resume Link:**
-[https://drive.google.com/file/d/1_8KBDq_a3z9btfwt2NUKBkdinxeg8neT/view?usp=sharing](https://drive.google.com/file/d/1_8KBDq_a3z9btfwt2NUKBkdinxeg8neT/view?usp=sharing)
+**Resume Link:**
+[https://drive.google.com/file/d/1_8KBDq_a3z9btfwt2NUKBkdinxeg8neT/view](https://drive.google.com/file/d/1_8KBDq_a3z9btfwt2NUKBkdinxeg8neT/view)
 
 ---
 
-## ⚠️ Known Limitations
+## 🔚 Known Limitations
 
-* No authentication or authorization (out of scope)
+* No authentication (out of scope)
 * Single-profile use case
-* No pagination or advanced filtering
-* Minimal UI by design
+* Minimal frontend by design
+* Projects and work history can be added using the same schema pattern
 
 ---
 
-## 🧠 Notes
 
-The scope was intentionally kept **small and production-minded**, focusing on:
+## © Copyright
+© 2026 **Sumit Kumar**.
+All rights reserved.
 
-* Correct API design
-* Persistent data storage
-* Clear schema modeling
-* Clean documentation
-
-Advanced features and UI complexity were intentionally avoided to align with the backend-focused nature of the assessment.
-
-````
-
----
-
-## ✅ AB KYA KARNA HAI (LAST STEPS)
-
-### 1️⃣ README commit kar
-```bash
-git add README.md
-git commit -m "Finalize README with deployed links and resume"
-git push origin main
-````
-
-### 2️⃣ Submit karte time yeh links daalna
-
-* **GitHub Repo:**
-  [https://github.com/sumitkr-2/resume-backend-api](https://github.com/sumitkr-2/resume-backend-api)
-* **Live App:**
-  [https://resume-backend-api.onrender.com](https://resume-backend-api.onrender.com)
 ---
